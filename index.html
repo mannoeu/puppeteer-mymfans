@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyM Fans</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 4px;
+        grid-template-rows: auto;
+      }
+      li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      li img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+    <script>
+      (async () => {
+        const res = await fetch("./api.json");
+        const data = await res.json();
+
+        const htmlList = data
+          .map(
+            ({ src }) =>
+              `<li>
+              <img src=${src} alt="image">
+          </li>`
+          )
+          .join("");
+
+        document.querySelector(".container").innerHTML = htmlList;
+      })();
+    </script>
+  </body>
+</html>
